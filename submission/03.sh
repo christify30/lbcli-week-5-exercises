@@ -3,5 +3,5 @@ transaction="020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f9548
 decoded_tx=$(bitcoin-cli -regtest decoderawtransaction "$transaction")
 redeem_script=$(echo "$decoded_tx" | jq -r '.vin[0].scriptSig.asm' | awk '{print $NF}')
 decoded_redeem_script=$(bitcoin-cli -regtest decodescript "$redeem_script")
-p2sh_address=$(echo "$decoded_redeem_script" | jq -r  '.p2sh')
+p2sh_address=$(echo "$decoded_redeem_script" | jq -r  '.segwit["p2sh-segwit"]')
 echo "$p2sh_address"
